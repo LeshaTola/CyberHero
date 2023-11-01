@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMesh))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Hunter : MonoBehaviour
 {
 	private NavMeshAgent agent;

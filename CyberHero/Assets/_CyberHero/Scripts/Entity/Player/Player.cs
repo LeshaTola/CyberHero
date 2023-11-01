@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[Header("Level")]
+	[SerializeField] private int maxLevel;
+	[SerializeField, Range(0, 2)] private float expMultiplier;
+	//[SerializeField] private AnimationCurve expCurve;//it is not useable in 2022.3.4f
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public LevelSystem LevelSystem { get; private set; }
+
+	private void Awake()
+	{
+		LevelSystem = new LevelSystem(maxLevel, expMultiplier);
+	}
+
 }

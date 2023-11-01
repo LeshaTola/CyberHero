@@ -2,7 +2,7 @@ using System;
 
 public class LevelSystem
 {
-	public event Action<float> OnExperienceChanged;
+	public event Action<float, float> OnExperienceChanged;
 	public event Action<int> OnLevelUp;
 
 	private int maxLevel;
@@ -28,6 +28,10 @@ public class LevelSystem
 			return;
 
 		Exp += exp;
+		if (Exp > expForLevelUp)
+			Exp = expForLevelUp;
+		OnExperienceChanged?.Invoke(Exp, expForLevelUp);
+
 		if (Level < maxLevel)
 		{
 			while (Exp >= expForLevelUp)
@@ -40,7 +44,7 @@ public class LevelSystem
 	private void LevelUp()
 	{
 		Exp -= expForLevelUp;
-		OnExperienceChanged?.Invoke(Exp);
+		OnExperienceChanged?.Invoke(Exp, expForLevelUp);
 
 		Level++;
 		OnLevelUp?.Invoke(Level);

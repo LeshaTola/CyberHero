@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class LevelSystemUI : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI expText;
 	[SerializeField] private TextMeshProUGUI levelText;
 	[SerializeField] private Slider expSlider;
+	[SerializeField] private Slider expEffectSlider;
 	[SerializeField] private Player player;
 
 	private LevelSystem levelSystem;
@@ -35,7 +37,15 @@ public class LevelSystemUI : MonoBehaviour
 	{
 		expText.text = $"{curExp}/{maxExp}";
 		var value = curExp / maxExp;
-		expSlider.value = value;
+		expEffectSlider.value = value;
+		ExpAnimation(value);
+	}
+
+	private void ExpAnimation(float targetValue)
+	{
+		float duration = 0.5f;
+		expSlider.DOKill();
+		expSlider.DOValue(targetValue, duration);
 	}
 
 	private void UpdateLevel(int curLevel)
